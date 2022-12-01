@@ -297,18 +297,20 @@ def add_text():
             x.extend(data.data['x'])
             y.extend(data.data['y'])
             shorts.extend(data.data['short'])
-    if l > 75:
-        return
-    fig, ax = subplots()
-    fig.set_size_inches(10, 10)
-    plot(x, y, 'bo')
-    texts = [text(x[i], y[i], shorts[i], ha='center', va='center', size=7) for i in range(l)]
-    adjust_text(texts)
-    ha = [item.get_ha() for item in texts]
-    va = [item.get_va() for item in texts]
-    va = ['middle' if item == 'center' else item for item in va]
-    text_data.data = dict(x=x, y=y, texts=shorts, text_align=ha, text_baseline=va)
-
+    if l <= 75:
+        fig, ax = subplots()
+        fig.set_size_inches(10, 10)
+        plot(x, y, 'bo')
+        texts = [text(x[i], y[i], shorts[i], ha='center', va='center', size=7) for i in range(l)]
+        adjust_text(texts)
+        ha = [item.get_ha() for item in texts]
+        va = [item.get_va() for item in texts]
+        va = ['middle' if item == 'center' else item for item in va]
+        text_data.data = dict(x=x, y=y, texts=shorts, text_align=ha, text_baseline=va)
+    else:
+        ha = ['right'] * len(x)
+        va = ['top'] * len(x)
+        text_data.data = dict(x=x, y=y, texts=shorts, text_align=ha, text_baseline=va)
 
 def remove_text():
     text_data.data = dict(x=[], y=[], texts=[], text_align=[], text_baseline=[])
@@ -491,7 +493,6 @@ update_scatter()
 update_size()
 update_distributions()
 update_highlighted()
-add_text()
 
 curdoc().add_root(layout)
 curdoc().title = 'FBRef Visualised'
