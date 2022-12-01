@@ -312,6 +312,7 @@ def add_text():
         va = ['top'] * len(x)
         text_data.data = dict(x=x, y=y, texts=shorts, text_align=ha, text_baseline=va)
 
+
 def remove_text():
     text_data.data = dict(x=[], y=[], texts=[], text_align=[], text_baseline=[])
 
@@ -454,6 +455,7 @@ x_axis.on_change('value', lambda attr, old, new: update_highlighted())
 y_axis.on_change('value', lambda attr, old, new: update_highlighted())
 id_list.on_change('value', lambda attr, old, new: update_highlighted())
 
+
 # update size (in title) events
 minutes.on_change('value', lambda attr, old, new: update_size())
 historic_team.on_change('value', lambda attr, old, new: update_size())
@@ -477,6 +479,7 @@ for i in range(8):
 
 
 # update highlight player events for distribution plots
+distribution_axis.on_change('value', lambda attr, old, new: update_highlighted())
 distribution_axis.on_change('value', lambda attr, old, new: updated_highlighted_dist())
 distribution_renderer_dict = {0: 'ALL', 1: 'GK', 2: 'CB', 3: 'FB', 4: 'DM', 5: 'CM', 6: 'AM', 7: 'WI', 8: 'FW'}
 for i in range(9):
