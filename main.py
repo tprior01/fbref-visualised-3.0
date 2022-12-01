@@ -485,7 +485,7 @@ for i in range(8):
 distribution_axis.on_change('value', lambda attr, old, new: updated_highlighted_dist())
 distribution_renderer_dict = {0: 'ALL', 1: 'GK', 2: 'CB', 3: 'FB', 4: 'DM', 5: 'CM', 6: 'AM', 7: 'WI', 8: 'FW'}
 for i in range(9):
-    s_position_renderers[i].data_source.selected.on_change('indices', partial(distribution_callback, position=distribution_renderer_dict[i]))
+    d_renderers[i].data_source.selected.on_change('indices', partial(distribution_callback, position=distribution_renderer_dict[i]))
 
 
 # text callback
@@ -508,4 +508,4 @@ update_text()
 
 curdoc().add_root(layout)
 curdoc().title = 'FBRef Visualised'
-show(layout)
+# show(layout)
