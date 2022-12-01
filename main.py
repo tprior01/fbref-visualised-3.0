@@ -1,14 +1,14 @@
 from pandas import read_csv
 from bokeh.io import curdoc
 from bokeh.layouts import column, row
-from bokeh.models import LabelSet, ColumnDataSource, Div, Select, AutocompleteInput, RangeSlider, DataRange1d, Circle
+from bokeh.models import Button, LabelSet, ColumnDataSource, Div, Select, AutocompleteInput, RangeSlider, DataRange1d, Circle
 from numpy import linspace, abs, where, array, abs as nabs, median
 from bokeh.plotting import figure, show
 from scipy.stats import lognorm
 from maps import *
 from json import load
 from adjustText import adjust_text
-from matplotlib.pyplot import plot, text
+from matplotlib.pyplot import plot, text, subplots
 from functools import partial
 
 # lookups
@@ -58,7 +58,10 @@ age = RangeSlider(title='Age', value=(15, max_age), start=15, end=max_age, step=
 historic_team = Select(title='Historic Team:', value='All', options=team_list)
 current_team = Select(title='Current Team:', value='All', options=team_list)
 nation = Select(title='Nation:', value='All', options=nation_list)
-show_text = Select(title='Player Name Labels:', value="Don't Show", options=['Show', "Don't Show"])
+
+# buttons to add and remove text labels
+add_button = Button(label="Add", button_type="default")
+remove_button = Button(label="Remove", button_type="default")
 
 
 # highlight player options
@@ -100,7 +103,7 @@ distribution_highlighted = dict(
     WI=ColumnDataSource(data=dict(x=[], y=[])),
     FW=ColumnDataSource(data=dict(x=[], y=[]))
 )
-text_data = ColumnDataSource(data=dict(x=[], y=[]))
+text_data = ColumnDataSource(data=dict(x=[], y=[], texts=[], text_align=[], text_baseline=[]))
 
 # tooltips
 tooltips = [
@@ -128,10 +131,13 @@ for position, data, colour in zip(scatter_data.keys(), scatter_data.values(), co
     )
     s_position_renderers.append(temp)
     s_position_renderers_dictionary[position] = temp
-    labels = LabelSet(x='x', y='y', text='short', source=scatter_data[position], text_font_size="7pt",
-                      text_align='text_align', text_baseline='text_baseline')
-    s.add_layout(labels)
-    s_text_renderer_dictionary[position] = labels
+    # labels = LabelSet(x='x', y='y', text='short', source=scatter_data[position], text_font_size="7pt",
+    #                   text_align='text_align', text_baseline='text_baseline')
+    # s.add_layout(labels)
+    # s_text_renderer_dictionary[position] = labels
+labels = LabelSet(x='x', y='y', text='texts', source=text_data, text_font_size="7pt",
+                  text_align='text_align', text_baseline='text_baseline')
+s.add_layout(labels)
 s.legend.click_policy = "hide"
 s.x_range = DataRange1d(only_visible=True, renderers=s_position_renderers)
 s.y_range = DataRange1d(only_visible=True, renderers=s_position_renderers)
@@ -215,8 +221,6 @@ def update_scatter():
                           Value=df.loc[:, ('stats', 'Value')],
                           id=df.index,
                           short=df.loc[:, ('stats', 'short')],
-                          text_align=['right' for x in range(len(x))],
-                          text_baseline=['right' for x in range(len(x))]
                           )
         data.data = dictionary
 
@@ -282,38 +286,32 @@ def update_distributions():
         d.xaxis.axis_label = f'x: {title}'
 
 
-def update_text():
-    if show_text.value == "Don't Show":
-        for position in positions:
-            s_text_renderer_dictionary[position].visible = False
-    else:
-        x = []
-        y = []
-        shorts = []
-        lengths = dict()
-        for position, data in scatter_data.items():
-            if not s_position_renderers_dictionary[position].visible:
-                s_text_renderer_dictionary[position].visible = False
-            else:
-                s_text_renderer_dictionary[position].visible = True
-                l = len(data.data['x'])
-                lengths[position] = l
-                x.extend(data.data['x'])
-                y.extend(data.data['y'])
-                shorts.extend(data.data['short'])
-        l = sum(lengths.values())
-        if l > 75:
-            return
-        plot(x, y)
-        texts = [text(x[i], y[i], shorts[i], ha='center', va='center', size=7) for i in range(l)]
-        adjust_text(texts)
-        ha = [item.get_ha() for item in texts]
-        va = [item.get_va() for item in texts]
-        i = 0
-        for position, data, length in zip(scatter_data.keys(), scatter_data.values(), lengths.values()):
-            data.data['text_align'] = ha[i: i + length]
-            data.data['text_baseline'] = va[i: i + length]
-            i += length
+def add_text():
+    x = []
+    y = []
+    shorts = []
+    l = 0
+    for position, data in scatter_data.items():
+        if s_position_renderers_dictionary[position].visible:
+            l += len(data.data['x'])
+            x.extend(data.data['x'])
+            y.extend(data.data['y'])
+            shorts.extend(data.data['short'])
+    if l > 75:
+        return
+    fig, ax = subplots()
+    fig.set_size_inches(10, 10)
+    plot(x, y, 'bo')
+    texts = [text(x[i], y[i], shorts[i], ha='center', va='center', size=7) for i in range(l)]
+    adjust_text(texts)
+    ha = [item.get_ha() for item in texts]
+    va = [item.get_va() for item in texts]
+    va = ['middle' if item == 'center' else item for item in va]
+    text_data.data = dict(x=x, y=y, texts=shorts, text_align=ha, text_baseline=va)
+
+
+def remove_text():
+    text_data.data = dict(x=[], y=[], texts=[], text_align=[], text_baseline=[])
 
 
 def update_size():
@@ -429,16 +427,6 @@ def distribution_callback(attr, old, new, position):
         d_glyph_items[position].visible = False
 
 
-def text_callback(attr, old, new, position):
-    if show_text.value == 'Show':
-        if s_position_renderers_dictionary[position].visible:
-            s_text_renderer_dictionary[position].visible = True
-        else:
-            s_text_renderer_dictionary[position].visible = False
-    else:
-        s_text_renderer_dictionary[position].visible = False
-
-
 # update categories events
 x_category.on_change('value', update_x_options)
 y_category.on_change('value', update_y_options)
@@ -477,9 +465,14 @@ for position in positions:
 # update id events
 name.on_change('value', lambda attr, old, new: update_id())
 
+# text update actions
+add_button.on_click(add_text)
+remove_button.on_click(remove_text)
+
 selection_renderer_dict = {0: 'GK', 1: 'CB', 2: 'FB', 3: 'DM', 4: 'CM', 5: 'AM', 6: 'WI', 7: 'FW'}
 for i in range(8):
     s_position_renderers[i].data_source.selected.on_change('indices', partial(selection_callback, position=selection_renderer_dict[i]))
+
 
 # update highlight player events for distribution plots
 distribution_axis.on_change('value', lambda attr, old, new: updated_highlighted_dist())
@@ -488,15 +481,9 @@ for i in range(9):
     d_renderers[i].data_source.selected.on_change('indices', partial(distribution_callback, position=distribution_renderer_dict[i]))
 
 
-# text callback
-show_text.on_change('value', lambda attr, old, new: update_text())
-for i in range(8):
-    s_position_renderers[i].on_change('visible', partial(text_callback, position=selection_renderer_dict[i]))
-
-
 # controls and layout
 controls = [total_per_min, minutes, age, value, x_category, x_axis, y_category, y_axis, historic_team, current_team, nation,
-            name, id_list, distribution_axis, show_text]
+            name, id_list, distribution_axis, Div(text='Add or Remove Text Labels:', sizing_mode="stretch_width"), row(add_button, remove_button, width=245)]
 inputs = column(*controls, width=245, spacing=-8)
 layout = column(desc, row(inputs, s), d, sizing_mode='scale_both', max_width=1300)
 
@@ -504,8 +491,8 @@ update_scatter()
 update_size()
 update_distributions()
 update_highlighted()
-update_text()
+add_text()
 
 curdoc().add_root(layout)
 curdoc().title = 'FBRef Visualised'
-# show(layout)
+show(layout)
