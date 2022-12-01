@@ -69,8 +69,8 @@ id_list = Select(title='Highlighted player ID:', value='b3af9be1', options=id_di
 # column data sources
 scatter_data = dict(
     GK=ColumnDataSource(data=dict(x=[], y=[])),
-    FB=ColumnDataSource(data=dict(x=[], y=[])),
     CB=ColumnDataSource(data=dict(x=[], y=[])),
+    FB=ColumnDataSource(data=dict(x=[], y=[])),
     DM=ColumnDataSource(data=dict(x=[], y=[])),
     CM=ColumnDataSource(data=dict(x=[], y=[])),
     AM=ColumnDataSource(data=dict(x=[], y=[])),
@@ -81,8 +81,8 @@ scatter_highlighted = ColumnDataSource(data=dict(x=[], y=[]))
 distribution_data = dict(
     ALL=ColumnDataSource(data=dict(x=[], y=[])),
     GK=ColumnDataSource(data=dict(x=[], y=[])),
-    FB=ColumnDataSource(data=dict(x=[], y=[])),
     CB=ColumnDataSource(data=dict(x=[], y=[])),
+    FB=ColumnDataSource(data=dict(x=[], y=[])),
     DM=ColumnDataSource(data=dict(x=[], y=[])),
     CM=ColumnDataSource(data=dict(x=[], y=[])),
     AM=ColumnDataSource(data=dict(x=[], y=[])),
@@ -92,8 +92,8 @@ distribution_data = dict(
 distribution_highlighted = dict(
     ALL=ColumnDataSource(data=dict(x=[], y=[])),
     GK=ColumnDataSource(data=dict(x=[], y=[])),
-    FB=ColumnDataSource(data=dict(x=[], y=[])),
     CB=ColumnDataSource(data=dict(x=[], y=[])),
+    FB=ColumnDataSource(data=dict(x=[], y=[])),
     DM=ColumnDataSource(data=dict(x=[], y=[])),
     CM=ColumnDataSource(data=dict(x=[], y=[])),
     AM=ColumnDataSource(data=dict(x=[], y=[])),
@@ -478,20 +478,19 @@ for position in positions:
 name.on_change('value', lambda attr, old, new: update_id())
 
 selection_renderer_dict = {0: 'GK', 1: 'CB', 2: 'FB', 3: 'DM', 4: 'CM', 5: 'AM', 6: 'WI', 7: 'FW'}
-for i in range(7):
+for i in range(8):
     s_position_renderers[i].data_source.selected.on_change('indices', partial(selection_callback, position=selection_renderer_dict[i]))
-
 
 # update highlight player events for distribution plots
 distribution_axis.on_change('value', lambda attr, old, new: updated_highlighted_dist())
 distribution_renderer_dict = {0: 'ALL', 1: 'GK', 2: 'CB', 3: 'FB', 4: 'DM', 5: 'CM', 6: 'AM', 7: 'WI', 8: 'FW'}
-for i in range(7):
+for i in range(9):
     s_position_renderers[i].data_source.selected.on_change('indices', partial(distribution_callback, position=distribution_renderer_dict[i]))
 
 
 # text callback
 show_text.on_change('value', lambda attr, old, new: update_text())
-for i in range(7):
+for i in range(8):
     s_position_renderers[i].on_change('visible', partial(text_callback, position=selection_renderer_dict[i]))
 
 
