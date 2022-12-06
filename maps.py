@@ -84,7 +84,9 @@ not_per_min = [
     'Def 3rd %',
     'Mid 3rd %',
     'Att 3rd %',
-    'Att Pen %'
+    'Att Pen %',
+    'Dist',
+    'AvgDist'
 ]
 
 axis_maps = dict(
