@@ -5,19 +5,19 @@
 3,Minutes,Save %,Launched Passes Completed ,Shots on Target %,Total Distance from Passing,Through Balls Completed,Dribles Leading to Shot,Middle Third Tackles,Middle Third Touches,Games as Substitute,Fouls
 4,Value,Clean Sheets,Launched Passes Attempted ,Goals / Shot,Progressive Distance from Passing,Switch Passes ,Shot Leading to Shot,Attacking Third Tackles,Attacking Third Touches,Games as Unused Substitute,Fouled
 5,Minutes / 90,Clean Sheet %,Launched Pass Success %,Goals / Shot on Target,Short Passes Completed,Crosses,Fouled Leading to Shot,Dribbler Tackles Completed,Opposition Penalty Area Touches,Points Per Match,Offsides
-6,Goals,Penalties Conceded,Passes Attempted ,Average Distance of Shot,Short Passes Attempted,Throw Ins,Defensive Action Leading to Shot,Dribbler Tackles Attempted,Live Ball Touches,Team Goals While on Pitch,Crosses
-7,Assists,Penalties Saved,Throws Attempted,Free Kick Shots,Short Pass Success %,Corners,Goal Creating Actions,Dribbler Tackle Success %,Dribbles Completed,Team Goals Against While on Pitch,Interceptions
-8,Goals - Penalties,Penalties Wide,Launched Pass Selection %,Penalties Scored,Medium Passes Completed,In Swinging Corners,Live Balls Leading to Goal,Times Dribbled Past,Dribbles Attempted,Team Goals +/- While on Pitch,Tackles Won
-9,Goals + Assists - Penalties,Penalty Save %,Pass Average Length,Penalties Attempted,Medium Passes Attempted,Out Swinging Corners,Dead Balls Leading to Goal,Blocks,Dribble Success %,Team xG While on Pitch,Penalties Won
-10,Penalties,,Goal Kicks Attempted ,xG,Medium Pass Success %,Straight Corners,Dribles Leading to Goal,Shots Blocked,Miscontrols,Team xG Against While on Pitch,Penalties Conceded
-11,Penalties Attempted,,Goal Kicks Launched %,npxG,Long Passes Completed,Passes Completed,Shot Leading to Goal,Passes Blocked,Dispossessed,Team xG +/- While on Pitch,Aerials Won
-12,Yellow Cards,,Goal Kick Average Length,npxG / Shot,Long Passes Attempted,Passes Offside,Fouled Leading to Goal,Interceptions,Passes Received,,Aerials Lost
-13,Red Cards,,Opponent Crosses,Goals - xG,Long Pass Success %,Passes Blocked,Defensive Action Leading to Goal,Tackles + Interceptions,Progressive Passes Received,,Aerial Success %
-14,xG,,Opponent Crosses Stopped,Non Penalty Goals - npxG,Assists,,,Clearances,,,
-15,npxG,,Opponent Cross Stop %,,xA,,,Errors Leading to Shot,,,
-16,xAG,,Defensive Actions Outside Penalty Area,,xAG,,,,,,
-17,npxG+xA,,Average Distance of Defensive Actions,,Assists - xA,,,,,,
-18,,,,,Key Passes,,,,,,
+6,Goals,Penalties Conceded,Passes Attempted ,Average Distance of Shot,Short Passes Attempted,Throw Ins,Defensive Action Leading to Shot,Dribbler Tackles Attempted,Own Penalty Area Touches %,Team Goals While on Pitch,Crosses
+7,Assists,Penalties Saved,Throws Attempted,Free Kick Shots,Short Pass Success %,Corners,Goal Creating Actions,Dribbler Tackle Success %,Defensive Third Touches %,Team Goals Against While on Pitch,Interceptions
+8,Goals - Penalties,Penalties Wide,Launched Pass Selection %,Penalties Scored,Medium Passes Completed,In Swinging Corners,Live Balls Leading to Goal,Times Dribbled Past,Middle Third Touches %,Team Goals +/- While on Pitch,Tackles Won
+9,Goals + Assists - Penalties,Penalty Save %,Pass Average Length,Penalties Attempted,Medium Passes Attempted,Out Swinging Corners,Dead Balls Leading to Goal,Blocks,Attacking Third Touches %,Team xG While on Pitch,Penalties Won
+10,Penalties,,Goal Kicks Attempted ,xG,Medium Pass Success %,Straight Corners,Dribles Leading to Goal,Shots Blocked,Opposition Penalty Area Touches %,Team xG Against While on Pitch,Penalties Conceded
+11,Penalties Attempted,,Goal Kicks Launched %,npxG,Long Passes Completed,Passes Completed,Shot Leading to Goal,Passes Blocked,Live Ball Touches,Team xG +/- While on Pitch,Aerials Won
+12,Yellow Cards,,Goal Kick Average Length,npxG / Shot,Long Passes Attempted,Passes Offside,Fouled Leading to Goal,Interceptions,Dribbles Completed,,Aerials Lost
+13,Red Cards,,Opponent Crosses,Goals - xG,Long Pass Success %,Passes Blocked,Defensive Action Leading to Goal,Tackles + Interceptions,Dribbles Attempted,,Aerial Success %
+14,xG,,Opponent Crosses Stopped,Non Penalty Goals - npxG,Assists,,,Clearances,Dribble Success %,,
+15,npxG,,Opponent Cross Stop %,,xA,,,Errors Leading to Shot,Miscontrols,,
+16,xAG,,Defensive Actions Outside Penalty Area,,xAG,,,,Dispossessed,,
+17,npxG+xA,,Average Distance of Defensive Actions,,Assists - xA,,,,Passes Received,,
+18,,,,,Key Passes,,,,Progressive Passes Received,,
 19,,,,,Final Third Passes Completed,,,,,,
 20,,,,,18 Yard Box Passes Completed,,,,,,
 21,,,,,18 Yard Box Crosses Completed,,,,,,
