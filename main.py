@@ -499,4 +499,4 @@ update_highlighted()
 
 curdoc().add_root(layout)
 curdoc().title = 'FBRef Visualised'
-show(layout)
+# show(layout)
