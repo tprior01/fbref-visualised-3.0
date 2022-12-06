@@ -485,7 +485,6 @@ percentile_data_types = {
     ('perc', 'stats', 'npxG'): uint8,
     ('perc', 'stats', 'xAG'): uint8,
     ('perc', 'stats', 'npxG+xAG'): uint8,
-    ('perc', 'stats', 'short'): uint8,
     ('perc', 'keepers', 'GA'): uint8,
     ('perc', 'keepers', 'SoTA'): uint8,
     ('perc', 'keepers', 'Save%'): uint8,
