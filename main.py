@@ -24,12 +24,10 @@ with open('data/dictionaries/positions.json') as json_file:
     position_dict = load(json_file)
 with open('data/dictionaries/names.json') as json_file:
     name_dict = load(json_file)
-with open('data/constants/max_min.json') as json_file:
-    max_min = load(json_file)
-with open('data/constants/max_age.json') as json_file:
-    max_age = load(json_file)
-with open('data/constants/max_value.json') as json_file:
-    max_value = load(json_file)
+
+max_min = 17950
+max_age = 40
+max_value = 160
 
 # text to display at the top of page
 desc = Div(text=open(f'description.html').read(), sizing_mode="stretch_width")
@@ -37,7 +35,7 @@ desc = Div(text=open(f'description.html').read(), sizing_mode="stretch_width")
 # data load
 df = read_csv('data/data.csv', header=[0, 1], index_col=0, dtype=data_types)
 pc = read_csv('data/percentiles.csv', header=[0, 1, 2], index_col=0, dtype=percentile_data_types).fillna(0)
-op = read_csv('data/axis_options.csv', index_col=0)
+op = read_csv('data/axis_options.csv', index_col=0, dtype=str)
 
 # toggles
 total_per_min = Select(title='Total or Per Minute', value='Per Minute', options=['Total', 'Per Minute'])
@@ -62,7 +60,6 @@ nation = Select(title='Nation:', value='All', options=nation_list)
 # buttons to add and remove text labels
 add_button = Button(label="Add", button_type="default")
 remove_button = Button(label="Remove", button_type="default")
-
 
 # highlight player options
 name = AutocompleteInput(title='Highlighted player name:', value='Takehiro Tomiyasu', completions=name_list,
@@ -131,10 +128,6 @@ for position, data, colour in zip(scatter_data.keys(), scatter_data.values(), co
     )
     s_position_renderers.append(temp)
     s_position_renderers_dictionary[position] = temp
-    # labels = LabelSet(x='x', y='y', text='short', source=scatter_data[position], text_font_size="7pt",
-    #                   text_align='text_align', text_baseline='text_baseline')
-    # s.add_layout(labels)
-    # s_text_renderer_dictionary[position] = labels
 labels = LabelSet(x='x', y='y', text='texts', source=text_data, text_font_size="7pt",
                   text_align='text_align', text_baseline='text_baseline')
 s.add_layout(labels)
